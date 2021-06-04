@@ -1,0 +1,109 @@
+package calculation;
+
+import operation.Operator;
+import operation.math.*;
+import operation.other.ClearProcessor;
+import operation.other.NonMathOperatorProcessor;
+import operation.other.UndoProcessor;
+import operation.other.dto.NonMathOperatorResult;
+import validation.InputValidator;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Stack;
+
+/**
+ * This class is the representation of the RPN calculator. To explain it in short; it collects the math operator
+ * processors and non-math operator processors in the constructor. For calculation, it gets a String RPN formatted input
+ * and traverses through every input and applies the correct operation that needs to be performed. After the processing
+ * is done, the stack is returned with updated elements.
+ */
+public class RPNCalculator {
+
+    private Stack<BigDecimal> calculatorStack;
+
+    private Stack<Stack<BigDecimal>> undoStack;
+
+    private final LinkedHashSet<MathOperatorProcessor> mathOperatorProcessors;
+
+    private final LinkedHashSet<NonMathOperatorProcessor> nonMathOperatorProcessors;
+
+    public RPNCalculator() {
+        this.calculatorStack = new Stack<>();
+        this.undoStack = new Stack<>();
+
+        mathOperatorProcessors = new LinkedHashSet<>();
+
+        mathOperatorProcessors.addAll(Arrays.asList(
+                new AdditionProcessor(),
+                new SubtractionProcessor(),
+                new MultiplicationProcessor(),
+                new DivisionProcessor(),
+                new SqrtProcessor()
+        ));
+
+        nonMathOperatorProcessors = new LinkedHashSet<>();
+
+        nonMathOperatorProcessors.addAll(Arrays.asList(
+                new ClearProcessor(),
+                new UndoProcessor()
+        ));
+    }
+
+    public Stack<BigDecimal> calculate(String rpnInput) {
+        String[] inputs = convertInputToArray(rpnInput);
+
+        int position = 1;
+
+        for (String input : inputs) {
+
+            InputValidator.validateIfInputNotNull(input);
+
+            if (InputValidator.isNumeric(input)) {
+                convertAndAddToStacks(input);
+            } else if (InputValidator.isOperator(input)) {
+                InputValidator.validateIfInputIsHasLessOperands(calculatorStack, position, input);
+
+                processMathOperators(input);
+                processNonMathOperators(input);
+            } else {
+                throw new IllegalArgumentException("The operation in position " + position + " is not supported: " + input);
+            }
+
+            position++;
+        }
+
+        return calculatorStack;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void convertAndAddToStacks(String input) {
+        calculatorStack.push(new BigDecimal(input));
+        undoStack.push((Stack<BigDecimal>) calculatorStack.clone());
+    }
+
+    private String[] convertInputToArray(String input) {
+        return input.trim()
+                .replaceAll(" +", " ")
+                .split(" ");
+    }
+
+    private void processMathOperators(String input) {
+        for (MathOperatorProcessor mathOperatorProcessor : mathOperatorProcessors) {
+            mathOperatorProcessor.process(Operator.fromString(input), calculatorStack, undoStack);
+        }
+    }
+
+    private void processNonMathOperators(String s) {
+        for (NonMathOperatorProcessor nonMathOperatorProcessor : nonMathOperatorProcessors) {
+            NonMathOperatorResult nonMathOperatorResult = nonMathOperatorProcessor.process(Operator.fromString(s), calculatorStack, undoStack);
+            calculatorStack = nonMathOperatorResult.getCalculatorStack();
+            undoStack = nonMathOperatorResult.getUndoStack();
+        }
+    }
+
+    public Stack<BigDecimal> getCalculatorStack() {
+        return calculatorStack;
+    }
+}
