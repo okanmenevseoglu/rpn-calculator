@@ -7,6 +7,10 @@ look <a href="https://medium.com/@okanmenevseoglu">here</a>.
 
 # Reverse Polish Notation (RPN) Calculator
 
+Reverse Polish notation (RPN), also known as Polish postfix notation or simply postfix notation, is a mathematical
+notation in which operators follow their operands, in contrast to Polish notation (PN), in which operators precede their
+operands. For more information, please visit <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">here</a>.
+
 ## Tools & Libraries
 
 * Java 15
@@ -15,18 +19,21 @@ look <a href="https://medium.com/@okanmenevseoglu">here</a>.
 * AssertJ 3.19.0
 * Maven 3.8.1
 * Maven Compiler Plugin
+* Docker
 
 ## Tests
 
-The project has 44 unit tests and 100% test coverage with JUnit 5, Mockito & AssertJ.
+The project has 46 unit tests and 100% class & method coverage with JUnit 5, Mockito & AssertJ.
 
 ## How to run?
 
-The project is a Java 15/Maven project. To be able to run it you should install at least Java 15 and Maven 3.8.1. After
-the installation run the command:
+1) The project is Dockerized, and it can be run by executing ```run.sh```, or you can run the code inside it manually. I
+   am building the project inside a base image, thus you don't need anything installed besides Docker on your PC.
 
-* ```mvn clean install exec:java -Dexec.mainClass=io.github.okanmenevseoglu.rpncalculator.Main```
-  under ```{PROJECT_DIR}/rpn-calculator```
+2) Alternatively, to be able to run locally you need at least Java 15 and Maven 3.8.1 installed on your PC. After that
+   you can run;
+    * ```mvn clean install exec:java -Dexec.mainClass=io.github.okanmenevseoglu.rpncalculator.Main```
+      under ```{PROJECT_DIR}/rpn-calculator```.
 
 ## How to use the application?
 
