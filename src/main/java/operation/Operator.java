@@ -23,14 +23,6 @@ public enum Operator {
         this.requiredOperandsCount = requiredOperandsCount;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public Integer getRequiredOperandsCount() {
-        return requiredOperandsCount;
-    }
-
     public static Operator fromString(String s) {
         for (Operator operator : Operator.values()) {
             if (operator.getSymbol().equals(s)) {
@@ -39,5 +31,13 @@ public enum Operator {
         }
 
         return null;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public Integer getRequiredOperandsCount() {
+        return requiredOperandsCount;
     }
 }
