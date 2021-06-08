@@ -258,9 +258,12 @@ class RPNCalculatorTest {
 
         RPNCalculator rpnCalculator = new RPNCalculator();
 
-        Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
-
-        assertThat(result.toString()).isEqualTo("[72, 15, 5, 3, 9, -1]");
+        try {
+            rpnCalculator.calculate(consoleInput);
+        } catch (ArithmeticException e) {
+            assertThat(e.getMessage()).isEqualTo("Attempted square root of negative BigDecimal");
+            assertThat(rpnCalculator.getCalculatorStack().toString()).isEqualTo("[72, 15, 5, 3, 9, -1]");
+        }
     }
 
     @Test
@@ -269,8 +272,11 @@ class RPNCalculatorTest {
 
         RPNCalculator rpnCalculator = new RPNCalculator();
 
-        Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
-
-        assertThat(result.toString()).isEqualTo("[-1]");
+        try {
+            rpnCalculator.calculate(consoleInput);
+        } catch (ArithmeticException e) {
+            assertThat(e.getMessage()).isEqualTo("Attempted square root of negative BigDecimal");
+            assertThat(rpnCalculator.getCalculatorStack().toString()).isEqualTo("[-1]");
+        }
     }
 }

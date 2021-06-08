@@ -9,8 +9,7 @@ import operation.other.dto.NonMathOperatorResult;
 import validation.InputValidator;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -25,30 +24,27 @@ public class RPNCalculator {
 
     private Stack<Stack<BigDecimal>> undoStack;
 
-    private final LinkedHashSet<MathOperatorProcessor> mathOperatorProcessors;
+    private final HashMap<Operator, MathOperatorProcessor> mathOperatorProcessors;
 
-    private final LinkedHashSet<NonMathOperatorProcessor> nonMathOperatorProcessors;
+    private final HashMap<Operator, NonMathOperatorProcessor> nonMathOperatorProcessors;
 
     public RPNCalculator() {
-        this.calculatorStack = new Stack<>();
-        this.undoStack = new Stack<>();
+        calculatorStack = new Stack<>();
 
-        mathOperatorProcessors = new LinkedHashSet<>();
+        undoStack = new Stack<>();
 
-        mathOperatorProcessors.addAll(Arrays.asList(
-                new AdditionProcessor(),
-                new SubtractionProcessor(),
-                new MultiplicationProcessor(),
-                new DivisionProcessor(),
-                new SqrtProcessor()
-        ));
+        mathOperatorProcessors = new HashMap<>();
 
-        nonMathOperatorProcessors = new LinkedHashSet<>();
+        mathOperatorProcessors.put(Operator.ADDITION, new AdditionProcessor());
+        mathOperatorProcessors.put(Operator.SUBTRACTION, new SubtractionProcessor());
+        mathOperatorProcessors.put(Operator.MULTIPLICATION, new MultiplicationProcessor());
+        mathOperatorProcessors.put(Operator.DIVISION, new DivisionProcessor());
+        mathOperatorProcessors.put(Operator.SQUARE_ROOT, new SqrtProcessor());
 
-        nonMathOperatorProcessors.addAll(Arrays.asList(
-                new ClearProcessor(),
-                new UndoProcessor()
-        ));
+        nonMathOperatorProcessors = new HashMap<>();
+
+        nonMathOperatorProcessors.put(Operator.CLEAR, new ClearProcessor());
+        nonMathOperatorProcessors.put(Operator.UNDO, new UndoProcessor());
     }
 
     public Stack<BigDecimal> calculate(String rpnInput) {
@@ -90,14 +86,16 @@ public class RPNCalculator {
     }
 
     private void processMathOperators(String input) {
-        for (MathOperatorProcessor mathOperatorProcessor : mathOperatorProcessors) {
-            mathOperatorProcessor.process(Operator.fromString(input), calculatorStack, undoStack);
-        }
+        MathOperatorProcessor processor = mathOperatorProcessors.get(Operator.fromString(input));
+        if (processor != null)
+            processor.process(Operator.fromString(input), calculatorStack, undoStack);
     }
 
-    private void processNonMathOperators(String s) {
-        for (NonMathOperatorProcessor nonMathOperatorProcessor : nonMathOperatorProcessors) {
-            NonMathOperatorResult nonMathOperatorResult = nonMathOperatorProcessor.process(Operator.fromString(s), calculatorStack, undoStack);
+    private void processNonMathOperators(String input) {
+        NonMathOperatorProcessor processor = nonMathOperatorProcessors.get(Operator.fromString(input));
+
+        if (processor != null) {
+            NonMathOperatorResult nonMathOperatorResult = processor.process(Operator.fromString(input), calculatorStack, undoStack);
             calculatorStack = nonMathOperatorResult.getCalculatorStack();
             undoStack = nonMathOperatorResult.getUndoStack();
         }
