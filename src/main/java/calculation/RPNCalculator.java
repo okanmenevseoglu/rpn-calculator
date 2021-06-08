@@ -61,8 +61,10 @@ public class RPNCalculator {
             } else if (InputValidator.isOperator(input)) {
                 InputValidator.validateIfInputIsHasLessOperands(calculatorStack, position, input);
 
-                processMathOperators(input);
-                processNonMathOperators(input);
+                Operator operator = Operator.fromString(input);
+
+                processMathOperators(operator);
+                processNonMathOperators(operator);
             } else {
                 throw new IllegalArgumentException("The operation in position " + position + " is not supported: " + input);
             }
@@ -85,17 +87,18 @@ public class RPNCalculator {
                 .split(" ");
     }
 
-    private void processMathOperators(String input) {
-        MathOperatorProcessor processor = mathOperatorProcessors.get(Operator.fromString(input));
+    private void processMathOperators(Operator operator) {
+        MathOperatorProcessor processor = mathOperatorProcessors.get(operator);
+
         if (processor != null)
-            processor.process(Operator.fromString(input), calculatorStack, undoStack);
+            processor.process(operator, calculatorStack, undoStack);
     }
 
-    private void processNonMathOperators(String input) {
-        NonMathOperatorProcessor processor = nonMathOperatorProcessors.get(Operator.fromString(input));
+    private void processNonMathOperators(Operator operator) {
+        NonMathOperatorProcessor processor = nonMathOperatorProcessors.get(operator);
 
         if (processor != null) {
-            NonMathOperatorResult nonMathOperatorResult = processor.process(Operator.fromString(input), calculatorStack, undoStack);
+            NonMathOperatorResult nonMathOperatorResult = processor.process(operator, calculatorStack, undoStack);
             calculatorStack = nonMathOperatorResult.getCalculatorStack();
             undoStack = nonMathOperatorResult.getUndoStack();
         }
