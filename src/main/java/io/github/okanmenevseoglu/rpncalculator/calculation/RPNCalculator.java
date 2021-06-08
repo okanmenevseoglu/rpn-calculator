@@ -1,12 +1,12 @@
-package calculation;
+package io.github.okanmenevseoglu.rpncalculator.calculation;
 
-import operation.Operator;
-import operation.math.*;
-import operation.other.ClearProcessor;
-import operation.other.NonMathOperatorProcessor;
-import operation.other.UndoProcessor;
-import operation.other.dto.NonMathOperatorResult;
-import validation.InputValidator;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.math.*;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.ClearProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.NonMathOperatorProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.UndoProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.dto.NonMathOperatorResult;
+import io.github.okanmenevseoglu.rpncalculator.validation.InputValidator;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

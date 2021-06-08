@@ -25,7 +25,8 @@ The project has 44 unit tests and 100% test coverage with JUnit 5, Mockito & Ass
 The project is a Java 15/Maven project. To be able to run it you should install at least Java 15 and Maven 3.8.1. After
 the installation run the command:
 
-* ```mvn clean install exec:java -Dexec.mainClass=Main``` under ```{PROJECT_DIR}/rpn-calculator```
+* ```mvn clean install exec:java -Dexec.mainClass=io.github.okanmenevseoglu.rpncalculator.Main```
+  under ```{PROJECT_DIR}/rpn-calculator```
 
 ## How to use the application?
 

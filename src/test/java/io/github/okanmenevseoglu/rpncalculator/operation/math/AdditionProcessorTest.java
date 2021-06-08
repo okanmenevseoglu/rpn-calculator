@@ -1,6 +1,6 @@
-package operation.math;
+package io.github.okanmenevseoglu.rpncalculator.operation.math;
 
-import operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

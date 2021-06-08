@@ -1,6 +1,6 @@
-package operation.math;
+package io.github.okanmenevseoglu.rpncalculator.operation.math;
 
-import operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,24 +13,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * A unit test class that contains the tests of {@link DivisionProcessor} class.
+ * A unit test class that contains the tests of {@link SubtractionProcessor} class.
  */
 @ExtendWith(MockitoExtension.class)
-class DivisionProcessorTest {
+class SubtractionProcessorTest {
 
     @InjectMocks
-    private DivisionProcessor divisionProcessor;
+    private SubtractionProcessor subtractionProcessor;
 
     @Test
-    void shouldGetDivisionOperator() {
-        Operator operator = divisionProcessor.getOperator();
+    void shouldGetSubtractionOperator() {
+        Operator operator = subtractionProcessor.getOperator();
 
-        assertThat(operator).isEqualTo(Operator.DIVISION);
+        assertThat(operator).isEqualTo(Operator.SUBTRACTION);
     }
 
     @Test
-    void shouldProcessDivision() {
-        Operator operator = Operator.DIVISION;
+    void shouldProcessSubtraction() {
+        Operator operator = Operator.SUBTRACTION;
 
         Stack<BigDecimal> actualCalculatorStack = new Stack<>();
         actualCalculatorStack.push(BigDecimal.valueOf(10));
@@ -41,16 +41,16 @@ class DivisionProcessorTest {
         Stack<BigDecimal> expectedCalculatorStack = new Stack<>();
         expectedCalculatorStack.push(BigDecimal.valueOf(10));
         expectedCalculatorStack.push(BigDecimal.valueOf(100));
-        expectedCalculatorStack.push(BigDecimal.valueOf(0.1));
+        expectedCalculatorStack.push(BigDecimal.valueOf(-9000));
 
-        divisionProcessor.process(operator, actualCalculatorStack, new Stack<>());
+        subtractionProcessor.process(operator, actualCalculatorStack, new Stack<>());
 
         assertThat(actualCalculatorStack).isEqualTo(expectedCalculatorStack);
     }
 
     @Test
-    void shouldNotProcessDivision() {
-        Operator operator = Operator.SUBTRACTION;
+    void shouldNotProcessSubtraction() {
+        Operator operator = Operator.ADDITION;
 
         Stack<BigDecimal> actualCalculatorStack = new Stack<>();
         actualCalculatorStack.push(BigDecimal.valueOf(10));
@@ -60,21 +60,20 @@ class DivisionProcessorTest {
         expectedCalculatorStack.push(BigDecimal.valueOf(10));
         expectedCalculatorStack.push(BigDecimal.valueOf(1000));
 
-
-        divisionProcessor.process(operator, actualCalculatorStack, new Stack<>());
+        subtractionProcessor.process(operator, expectedCalculatorStack, new Stack<>());
 
         assertThat(actualCalculatorStack).isEqualTo(expectedCalculatorStack);
     }
 
     @Test
-    void shouldThrowExceptionForProcessDivision() {
-        Operator operator = Operator.DIVISION;
+    void shouldThrowExceptionForProcessSubtraction() {
+        Operator operator = Operator.SUBTRACTION;
 
         Stack<BigDecimal> numbers = new Stack<>();
         numbers.push(BigDecimal.valueOf(10));
 
         try {
-            divisionProcessor.validate(operator, numbers);
+            subtractionProcessor.validate(operator, numbers);
             fail();
         } catch (IllegalStateException e) {
             assertThat(e.getMessage()).isEqualTo("2 operand(s) are required!");

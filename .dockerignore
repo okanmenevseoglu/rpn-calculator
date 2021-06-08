@@ -1,0 +1,14 @@
+# Compiled target folder
+target
+
+# IntelliJ
+.idea
+
+# Module file
+*.iml
+
+# Shell files
+*.sh
+
+# README
+README.md

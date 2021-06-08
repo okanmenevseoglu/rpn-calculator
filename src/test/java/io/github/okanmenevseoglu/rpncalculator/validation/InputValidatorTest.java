@@ -1,4 +1,4 @@
-package validation;
+package io.github.okanmenevseoglu.rpncalculator.validation;
 
 import org.junit.jupiter.api.Test;
 

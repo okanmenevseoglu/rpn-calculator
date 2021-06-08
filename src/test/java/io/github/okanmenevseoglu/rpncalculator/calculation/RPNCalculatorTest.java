@@ -1,8 +1,8 @@
-package calculation;
+package io.github.okanmenevseoglu.rpncalculator.calculation;
 
-import operation.math.*;
-import operation.other.ClearProcessor;
-import operation.other.UndoProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.math.*;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.ClearProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.UndoProcessor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,7 +1,7 @@
-package operation.other;
+package io.github.okanmenevseoglu.rpncalculator.operation.other;
 
-import operation.Operator;
-import operation.other.dto.NonMathOperatorResult;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.dto.NonMathOperatorResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,6 +1,6 @@
-package operation.math;
+package io.github.okanmenevseoglu.rpncalculator.operation.math;
 
-import operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,24 +13,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * A unit test class that contains the tests of {@link MultiplicationProcessor} class.
+ * A unit test class that contains the tests of {@link SqrtProcessor} class.
  */
 @ExtendWith(MockitoExtension.class)
-class MultiplicationProcessorTest {
+class SqrtProcessorTest {
 
     @InjectMocks
-    private MultiplicationProcessor multiplicationProcessor;
+    private SqrtProcessor sqrtProcessor;
 
     @Test
-    void shouldGetMultiplicationOperator() {
-        Operator operator = multiplicationProcessor.getOperator();
+    void shouldGetSqrtOperator() {
+        Operator operator = sqrtProcessor.getOperator();
 
-        assertThat(operator).isEqualTo(Operator.MULTIPLICATION);
+        assertThat(operator).isEqualTo(Operator.SQUARE_ROOT);
     }
 
     @Test
-    void shouldProcessMultiplication() {
-        Operator operator = Operator.MULTIPLICATION;
+    void shouldProcessSquareRoot() {
+        Operator operator = Operator.SQUARE_ROOT;
 
         Stack<BigDecimal> actualCalculatorStack = new Stack<>();
         actualCalculatorStack.push(BigDecimal.valueOf(10));
@@ -41,16 +41,17 @@ class MultiplicationProcessorTest {
         Stack<BigDecimal> expectedCalculatorStack = new Stack<>();
         expectedCalculatorStack.push(BigDecimal.valueOf(10));
         expectedCalculatorStack.push(BigDecimal.valueOf(100));
-        expectedCalculatorStack.push(BigDecimal.valueOf(10_000_000));
+        expectedCalculatorStack.push(BigDecimal.valueOf(1000));
+        expectedCalculatorStack.push(BigDecimal.valueOf(100));
 
-        multiplicationProcessor.process(operator, actualCalculatorStack, new Stack<>());
+        sqrtProcessor.process(operator, actualCalculatorStack, new Stack<>());
 
         assertThat(actualCalculatorStack).isEqualTo(expectedCalculatorStack);
     }
 
     @Test
-    void shouldNotProcessMultiplication() {
-        Operator operator = Operator.ADDITION;
+    void shouldNotProcessSquareRoot() {
+        Operator operator = Operator.SUBTRACTION;
 
         Stack<BigDecimal> actualCalculatorStack = new Stack<>();
         actualCalculatorStack.push(BigDecimal.valueOf(10));
@@ -60,23 +61,22 @@ class MultiplicationProcessorTest {
         expectedCalculatorStack.push(BigDecimal.valueOf(10));
         expectedCalculatorStack.push(BigDecimal.valueOf(1000));
 
-        multiplicationProcessor.process(operator, actualCalculatorStack, new Stack<>());
+        sqrtProcessor.process(operator, actualCalculatorStack, new Stack<>());
 
         assertThat(actualCalculatorStack).isEqualTo(expectedCalculatorStack);
     }
 
     @Test
-    void shouldThrowExceptionForProcessMultiplication() {
-        Operator operator = Operator.MULTIPLICATION;
+    void shouldThrowExceptionForProcessSquareRoot() {
+        Operator operator = Operator.SQUARE_ROOT;
 
         Stack<BigDecimal> numbers = new Stack<>();
-        numbers.push(BigDecimal.valueOf(10));
 
         try {
-            multiplicationProcessor.validate(operator, numbers);
+            sqrtProcessor.validate(operator, numbers);
             fail();
         } catch (IllegalStateException e) {
-            assertThat(e.getMessage()).isEqualTo("2 operand(s) are required!");
+            assertThat(e.getMessage()).isEqualTo("1 operand(s) are required!");
         }
     }
 }

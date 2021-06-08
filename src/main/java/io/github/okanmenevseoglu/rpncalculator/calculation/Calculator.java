@@ -1,4 +1,4 @@
-package calculation;
+package io.github.okanmenevseoglu.rpncalculator.calculation;
 
 import java.math.BigDecimal;
 import java.util.Stack;
