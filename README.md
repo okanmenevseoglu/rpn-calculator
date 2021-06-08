@@ -27,8 +27,8 @@ The project has 46 unit tests and 100% class & method coverage with JUnit 5, Moc
 
 ## How to run?
 
-1) The project is Dockerized, and it can be run by executing ```run.sh```, or you can run the code inside it manually. I
-   am building the project inside a base image, thus you don't need anything installed besides Docker on your PC.
+1) The project is Dockerized, and it can be run by executing ```run.sh```, or you can run the code inside the file
+   manually. The project is built inside a base image, thus you don't need anything installed besides Docker on your PC.
 
 2) Alternatively, to be able to run locally you need at least Java 15 and Maven 3.8.1 installed on your PC. After that
    you can run;
