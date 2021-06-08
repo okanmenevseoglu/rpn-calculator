@@ -1,4 +1,8 @@
+import calculation.Calculator;
 import calculation.RPNCalculator;
+import operation.math.*;
+import operation.other.ClearProcessor;
+import operation.other.UndoProcessor;
 
 import java.util.Scanner;
 
@@ -14,7 +18,9 @@ public class Main {
      * @param args program arguments
      */
     public static void main(String[] args) {
-        RPNCalculator rpnCalculator = new RPNCalculator();
+        Calculator rpnCalculator = new RPNCalculator(
+                new AdditionProcessor(), new SubtractionProcessor(), new MultiplicationProcessor(),
+                new DivisionProcessor(), new SqrtProcessor(), new ClearProcessor(), new UndoProcessor());
 
         Scanner scanner = new Scanner(System.in);
 

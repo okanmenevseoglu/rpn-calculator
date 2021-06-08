@@ -18,33 +18,51 @@ import java.util.Stack;
  * and traverses through every input and applies the correct operation that needs to be performed. After the processing
  * is done, the stack is returned with updated elements.
  */
-public class RPNCalculator {
+public class RPNCalculator implements Calculator {
 
-    private Stack<BigDecimal> calculatorStack;
-
-    private Stack<Stack<BigDecimal>> undoStack;
+    private final AdditionProcessor additionProcessor;
+    private final SubtractionProcessor subtractionProcessor;
+    private final MultiplicationProcessor multiplicationProcessor;
+    private final DivisionProcessor divisionProcessor;
+    private final SqrtProcessor sqrtProcessor;
+    private final ClearProcessor clearProcessor;
+    private final UndoProcessor undoProcessor;
 
     private final HashMap<Operator, MathOperatorProcessor> mathOperatorProcessors;
-
     private final HashMap<Operator, NonMathOperatorProcessor> nonMathOperatorProcessors;
 
-    public RPNCalculator() {
-        calculatorStack = new Stack<>();
+    private Stack<BigDecimal> calculatorStack;
+    private Stack<Stack<BigDecimal>> undoStack;
 
-        undoStack = new Stack<>();
+    public RPNCalculator(AdditionProcessor additionProcessor, SubtractionProcessor subtractionProcessor,
+                         MultiplicationProcessor multiplicationProcessor, DivisionProcessor divisionProcessor,
+                         SqrtProcessor sqrtProcessor, ClearProcessor clearProcessor, UndoProcessor undoProcessor) {
+        this.additionProcessor = additionProcessor;
+        this.subtractionProcessor = subtractionProcessor;
+        this.multiplicationProcessor = multiplicationProcessor;
+        this.divisionProcessor = divisionProcessor;
+        this.sqrtProcessor = sqrtProcessor;
+        this.clearProcessor = clearProcessor;
+        this.undoProcessor = undoProcessor;
 
         mathOperatorProcessors = new HashMap<>();
-
-        mathOperatorProcessors.put(Operator.ADDITION, new AdditionProcessor());
-        mathOperatorProcessors.put(Operator.SUBTRACTION, new SubtractionProcessor());
-        mathOperatorProcessors.put(Operator.MULTIPLICATION, new MultiplicationProcessor());
-        mathOperatorProcessors.put(Operator.DIVISION, new DivisionProcessor());
-        mathOperatorProcessors.put(Operator.SQUARE_ROOT, new SqrtProcessor());
-
         nonMathOperatorProcessors = new HashMap<>();
 
-        nonMathOperatorProcessors.put(Operator.CLEAR, new ClearProcessor());
-        nonMathOperatorProcessors.put(Operator.UNDO, new UndoProcessor());
+        calculatorStack = new Stack<>();
+        undoStack = new Stack<>();
+
+        initProcessors();
+    }
+
+    private void initProcessors() {
+        mathOperatorProcessors.put(Operator.ADDITION, additionProcessor);
+        mathOperatorProcessors.put(Operator.SUBTRACTION, subtractionProcessor);
+        mathOperatorProcessors.put(Operator.MULTIPLICATION, multiplicationProcessor);
+        mathOperatorProcessors.put(Operator.DIVISION, divisionProcessor);
+        mathOperatorProcessors.put(Operator.SQUARE_ROOT, sqrtProcessor);
+
+        nonMathOperatorProcessors.put(Operator.CLEAR, clearProcessor);
+        nonMathOperatorProcessors.put(Operator.UNDO, undoProcessor);
     }
 
     public Stack<BigDecimal> calculate(String rpnInput) {

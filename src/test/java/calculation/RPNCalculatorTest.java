@@ -1,6 +1,13 @@
 package calculation;
 
+import operation.math.*;
+import operation.other.ClearProcessor;
+import operation.other.UndoProcessor;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Stack;
@@ -11,13 +18,37 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * A unit test class that contains the tests of {@link RPNCalculator} class.
  */
+@SuppressWarnings("unused")
+@ExtendWith(MockitoExtension.class)
 class RPNCalculatorTest {
+
+    @Spy
+    private AdditionProcessor additionProcessor;
+
+    @Spy
+    private SubtractionProcessor subtractionProcessor;
+
+    @Spy
+    private MultiplicationProcessor multiplicationProcessor;
+
+    @Spy
+    private DivisionProcessor divisionProcessor;
+
+    @Spy
+    private SqrtProcessor sqrtProcessor;
+
+    @Spy
+    private ClearProcessor clearProcessor;
+
+    @Spy
+    private UndoProcessor undoProcessor;
+
+    @InjectMocks
+    private RPNCalculator rpnCalculator;
 
     @Test
     void shouldCalculate1() {
         String consoleInput = "5          2";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -27,8 +58,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate2() {
         String consoleInput = "2 sqrt";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -44,8 +73,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate3() {
         String consoleInput = "5 2 -";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -67,8 +94,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate4() {
         String consoleInput = "5 4 3 2";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -97,8 +122,6 @@ class RPNCalculatorTest {
     void shouldCalculate5() {
         String consoleInput = "7 12 2 /";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
         assertThat(result.toString()).isEqualTo("[7, 6]");
@@ -119,8 +142,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate6() {
         String consoleInput = "1 2 3 4 5";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -143,8 +164,6 @@ class RPNCalculatorTest {
     void shouldCalculate7() {
         String consoleInput = "1 2 3 4 5";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
         assertThat(result.toString()).isEqualTo("[1, 2, 3, 4, 5]");
@@ -160,8 +179,6 @@ class RPNCalculatorTest {
     void shouldCalculate8() {
         String consoleInput = "1 2 3 * 5 + * * 6 5";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         try {
             rpnCalculator.calculate(consoleInput);
             fail();
@@ -175,8 +192,6 @@ class RPNCalculatorTest {
     void shouldCalculate9() {
         String consoleInput = "3 5 6 72 + - /";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
         assertThat(result.toString()).isEqualTo("[-0.041095890411]");
@@ -185,8 +200,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate10() {
         String consoleInput = "5 4 3 2";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
@@ -227,8 +240,6 @@ class RPNCalculatorTest {
     void shouldCalculate11() {
         String consoleInput = "72 15 5 6 + - /";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         Stack<BigDecimal> result = rpnCalculator.calculate(consoleInput);
 
         assertThat(result.toString()).isEqualTo("[18]");
@@ -256,8 +267,6 @@ class RPNCalculatorTest {
     void shouldCalculate12() {
         String consoleInput = "72 15 5 9 sqrt 81 sqrt -1 sqrt";
 
-        RPNCalculator rpnCalculator = new RPNCalculator();
-
         try {
             rpnCalculator.calculate(consoleInput);
         } catch (ArithmeticException e) {
@@ -269,8 +278,6 @@ class RPNCalculatorTest {
     @Test
     void shouldCalculate13() {
         String consoleInput = "-1 sqrt";
-
-        RPNCalculator rpnCalculator = new RPNCalculator();
 
         try {
             rpnCalculator.calculate(consoleInput);
