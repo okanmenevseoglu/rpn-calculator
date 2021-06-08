@@ -1,8 +1,8 @@
-package operation.other;
+package io.github.okanmenevseoglu.rpncalculator.operation.other;
 
-import operation.Operator;
-import operation.OperatorProcessor;
-import operation.other.dto.NonMathOperatorResult;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.OperatorProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.dto.NonMathOperatorResult;
 
 import java.math.BigDecimal;
 import java.util.Stack;

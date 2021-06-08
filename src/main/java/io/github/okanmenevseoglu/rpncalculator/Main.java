@@ -1,8 +1,10 @@
-import calculation.Calculator;
-import calculation.RPNCalculator;
-import operation.math.*;
-import operation.other.ClearProcessor;
-import operation.other.UndoProcessor;
+package io.github.okanmenevseoglu.rpncalculator;
+
+import io.github.okanmenevseoglu.rpncalculator.calculation.Calculator;
+import io.github.okanmenevseoglu.rpncalculator.calculation.RPNCalculator;
+import io.github.okanmenevseoglu.rpncalculator.operation.math.*;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.ClearProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.other.UndoProcessor;
 
 import java.util.Scanner;
 

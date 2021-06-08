@@ -1,4 +1,4 @@
-package operation;
+package io.github.okanmenevseoglu.rpncalculator.operation;
 
 /**
  * An enum class that symbolizes possible operations by the application. Operators also have corresponding symbols and

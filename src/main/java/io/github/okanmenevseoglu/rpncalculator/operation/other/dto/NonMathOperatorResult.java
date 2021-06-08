@@ -1,4 +1,4 @@
-package operation.other.dto;
+package io.github.okanmenevseoglu.rpncalculator.operation.other.dto;
 
 import java.math.BigDecimal;
 import java.util.Stack;

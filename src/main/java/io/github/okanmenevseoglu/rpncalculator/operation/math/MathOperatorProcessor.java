@@ -1,7 +1,7 @@
-package operation.math;
+package io.github.okanmenevseoglu.rpncalculator.operation.math;
 
-import operation.Operator;
-import operation.OperatorProcessor;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.OperatorProcessor;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

@@ -1,6 +1,6 @@
-package validation;
+package io.github.okanmenevseoglu.rpncalculator.validation;
 
-import operation.Operator;
+import io.github.okanmenevseoglu.rpncalculator.operation.Operator;
 
 import java.math.BigDecimal;
 import java.util.Objects;
