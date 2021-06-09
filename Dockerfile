@@ -11,5 +11,3 @@ ENV TZ Europe/Amsterdam
 RUN mvn clean install
 
 ENTRYPOINT ["java","-jar","target/rpn-calculator-1.0.0.jar"]
-
-EXPOSE 8080
