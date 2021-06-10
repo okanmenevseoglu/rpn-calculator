@@ -65,6 +65,7 @@ public class RPNCalculator implements Calculator {
         nonMathOperatorProcessors.put(Operator.UNDO, undoProcessor);
     }
 
+    @Override
     public Stack<BigDecimal> calculate(String rpnInput) {
         String[] inputs = convertInputToArray(rpnInput);
 
@@ -90,6 +91,11 @@ public class RPNCalculator implements Calculator {
             position++;
         }
 
+        return calculatorStack;
+    }
+
+    @Override
+    public Stack<BigDecimal> getCalculatorStack() {
         return calculatorStack;
     }
 
@@ -120,9 +126,5 @@ public class RPNCalculator implements Calculator {
             calculatorStack = nonMathOperatorResult.getCalculatorStack();
             undoStack = nonMathOperatorResult.getUndoStack();
         }
-    }
-
-    public Stack<BigDecimal> getCalculatorStack() {
-        return calculatorStack;
     }
 }
